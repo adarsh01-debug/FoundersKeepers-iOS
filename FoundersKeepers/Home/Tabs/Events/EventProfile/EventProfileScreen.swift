@@ -136,13 +136,18 @@ struct EventProfileScreen: View {
                 }
             }
         }
-        .alert(isPresented: $showAlert) { // Alert logic remains the same
-            Alert(
-                title: Text("Request Sent!"),
-                message: Text("Organizer has been notified. Once they verify, you can access the event group chat."),
-                dismissButton: .default(Text("OK"))
-            )
-        }
+        .customAlert(
+            isPresented: $showAlert,
+            iconName: "paperplane.fill", // Or "checkmark.circle.fill" for generic success
+            iconColor: AppConstants.successGreen, //
+            title: "Request Sent!",
+            message: "Organizer has been notified. Once they verify, you can access the event group chat.",
+            primaryButtonTitle: "OK",
+            primaryButtonAction: {
+                // isPresented will be set to false by CustomAlertView's button action
+            }
+            // No secondary button needed for this specific alert
+        )
     }
 }
 

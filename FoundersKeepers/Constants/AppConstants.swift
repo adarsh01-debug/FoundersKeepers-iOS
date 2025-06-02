@@ -19,6 +19,7 @@ struct AppConstants {
     static let exploreCardViewBgColor = Color(red: 39/255, green: 30/255, blue: 40/255)
     
     static let eventProfileSectionBackground = Color(white: 0.1) // Slightly lighter than pure black
+    static let successGreen = Color.green
 
     // MARK: - Paddings & Spacings
     static let horizontalPadding: CGFloat = 20

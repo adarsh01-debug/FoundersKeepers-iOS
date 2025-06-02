@@ -111,9 +111,17 @@ struct ExploreScreen: View {
             }
         }
         .scrollIndicators(.hidden) // Hides scroll indicators if ScrollView was still present
-        .alert(isPresented: $showAlert) {
-            Alert(title: Text("Connection Request"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
-        }
+        .customAlert(
+            isPresented: $showAlert,
+            iconName: "checkmark.seal.fill", // Example icon
+            iconColor: AppConstants.successGreen, // Or successGreen
+            title: "Connection Request Sent!",
+            message: "You've shown interest in this post. They will be notified and may contact you soon!",
+            primaryButtonTitle: "Awesome!",
+            primaryButtonAction: {
+                // isPresented will be set to false by CustomAlertView's button action
+            }
+        )
     }
 
     func handleSwipe(profile: UserProfile, direction: SwipeDirection) {
