@@ -9,69 +9,82 @@ import Foundation
 import SwiftUI
 
 struct EventsScreen: View {
-    // Sample events data, replace with actual data source / view model
     @State private var events: [Event] = Event.sampleEvents
 
     var body: some View {
-        ZStack(alignment: .bottomTrailing) { // ZStack for FAB
-            AppConstants.darkBackground.edgesIgnoringSafeArea(.all) //
-
+        ZStack(alignment: .bottomTrailing) {
+            // Layer 1: Background Color for the ZStack.
+            // This color will now extend into the safe areas because the ZStack itself will ignore them.
+            AppConstants.darkBackground.edgesIgnoringSafeArea(.all)
+            
+            // Layer 2: Main content (Header + Scrollable list)
             VStack(alignment: .leading, spacing: 0) {
-                // Header Section
+                // Header Section (as previously defined)
                 HStack {
-                    Image(systemName: "calendar.badge.plus") // Icon from image
+                    Image(systemName: "calendar.badge.plus")
                         .font(.system(size: 28, weight: .bold))
-                        .foregroundColor(AppConstants.primaryOrange) //
+                        .foregroundColor(AppConstants.primaryOrange)
                         .padding(8)
-                        .background(AppConstants.primaryOrange.opacity(0.15)) //
+                        .background(AppConstants.primaryOrange.opacity(0.15))
                         .clipShape(Circle())
                     
                     VStack(alignment: .leading) {
-                        Text("Events Near You") // Text from image
+                        Text("Events Near You")
                             .font(.title2)
                             .fontWeight(.bold)
                             .foregroundColor(.white)
-                        Text("Discover and join amazing events") // Text from image
+                        Text("Discover and join amazing events")
                             .font(.caption)
-                            .foregroundColor(AppConstants.secondaryText) //
+                            .foregroundColor(AppConstants.secondaryText)
                     }
                 }
-                .padding(.horizontal, AppConstants.horizontalPadding) //
-                .padding(.top, AppConstants.largeVerticalSpacing) //
-                .padding(.bottom, AppConstants.verticalSpacing) //
-
-                // List of Events
+                .padding(.horizontal, AppConstants.horizontalPadding)
+                .padding(.top, AppConstants.largeVerticalSpacing)
+                .padding(.bottom, AppConstants.verticalSpacing)
+                
                 ScrollView {
-                    LazyVStack(spacing: AppConstants.verticalSpacing) { //
+                    LazyVStack(spacing: AppConstants.verticalSpacing) {
                         ForEach(events) { event in
-                            EventCardView(event: event)
+                            NavigationLink(destination: EventProfileScreen(event: event)) {
+                                EventCardView(event: event)
+                            }
+                            .buttonStyle(PlainButtonStyle())
                         }
                     }
-                    .padding(.horizontal, AppConstants.horizontalPadding) //
-                    .padding(.bottom, AppConstants.largeVerticalSpacing * 2) // Padding for FAB space
+                    .padding(.horizontal, AppConstants.horizontalPadding)
+                    // This padding ensures the last item in scroll view isn't hidden by the FAB
+                    .padding(.bottom, 80) // Adjust this based on FAB size + desired spacing
                 }
                 .scrollIndicators(.hidden)
             }
-
-            // Floating Action Button (FAB)
+            // The VStack above will naturally fit its content.
+            // The ScrollView will take available vertical space within the VStack.
+            
+            // Layer 3: Floating Action Button (FAB)
             Button(action: {
                 print("FAB Tapped! - Implement action e.g., create new event")
-                // Add action for FAB, e.g., navigate to a create event screen
             }) {
-                AppConstants.primaryOrange //
+                AppConstants.primaryOrange
                     .frame(width: 60, height: 60)
                     .clipShape(Circle())
-                    .shadow(color: AppConstants.primaryOrange.opacity(0.5), radius: 8, y: 4) //
+                    .shadow(color: AppConstants.primaryOrange.opacity(0.5), radius: 8, y: 4)
                     .overlay(
-                        Image(systemName: "plus") // Example icon for FAB
+                        Image(systemName: "plus")
                             .font(.system(size: 24, weight: .bold))
                             .foregroundColor(.white)
                     )
             }
-            .padding(AppConstants.horizontalPadding) //
-            // Adjust padding if tab bar is opaque and FAB should sit above it more clearly.
-            // If your tab bar is translucent, this padding might be enough.
+            // Padding for FAB from the edges of the ZStack.
+            // Since ZStack ignores safe area, this padding is from the physical edges.
+            .padding() // General padding, adjust as needed e.g., .padding([.bottom, .trailing], 20)
         }
+        .background(AppConstants.darkBackground) // Ensure ZStack itself has the dark background
+        // This background will now go edge-to-edge due to ignoresSafeArea.
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarHidden(true)
+        // Using .stack navigation view style can prevent some layout issues with TabView on iPad,
+        // but it's often the default on iPhone for this kind of setup.
+        // .navigationViewStyle(.stack)
     }
 }
 
