@@ -6,70 +6,62 @@
 //
 
 import Foundation
-// Event.swift (or inside EventsScreen.swift)
 import SwiftUI
+import CoreLocation // For map coordinates
+
+struct Organizer: Identifiable {
+    let id = UUID()
+    let name: String
+    let imageName: String // Placeholder for organizer's avatar
+}
 
 struct Event: Identifiable {
     let id = UUID()
     let title: String
     let dateString: String
-    let location: String
+    let dateTime: Date // For more precise time handling if needed
+    let locationName: String // e.g., "Gandhinagar"
+    let fullAddress: String // e.g., "Central Park, NYC"
     let distance: String
-    let attendees: Int
-    let price: String
-    let imageName: String
-    let gradientColors: [Color]
-    let longDescription: String // New property
+    let attendeesCount: Int
+    let attendeeImageNames: [String] // For stacked avatars
+    let price: String // e.g., "Free" or "$30.00"
+    let coverImageName: String // For the large top image
+    let gradientColors: [Color] // For the card in EventsScreen (translucent)
+    let longDescription: String
+    let organizer: Organizer
+    let coordinates: CLLocationCoordinate2D // For the map
 
-    // Sample Data - MODIFIED with longDescription and translucent gradients
+    // Sample Data - Updated
     static let sampleEvents: [Event] = [
-        Event(title: "Summer Music Festival",
-              dateString: "Tomorrow, 7:00 PM",
-              location: "Central Park, NYC",
-              distance: "2.5 miles away",
-              attendees: 245,
-              price: "Free",
-              imageName: "music.mic.circle.fill",
-              gradientColors: [
-                Color(red: 100/255, green: 40/255, blue: 180/255).opacity(0.30),
-                Color(red: 50/255, green: 20/255, blue: 90/255).opacity(0.30)
-              ],
-              longDescription: "Join us for an unforgettable night under the stars with live performances from top local bands and artists. Bring your friends, a blanket, and enjoy the vibrant atmosphere. Food and drinks available on site. Don't miss out on the biggest musical event of the summer!"),
+        Event(title: "Party with friends at night - 2022",
+              dateString: "THU 26 May, 09:00 PM", // Adjusted format
+              dateTime: Calendar.current.date(byAdding: .day, value: 1, to: Date())!, // Example date
+              locationName: "Gandhinagar",
+              fullAddress: "123 Party Lane, Gandhinagar",
+              distance: "1.5 miles away",
+              attendeesCount: 45, // Total, e.g., 5 shown + 40
+              attendeeImageNames: ["person.crop.circle.fill", "person.crop.circle.fill", "person.crop.circle.fill", "person.crop.circle.fill", "person.crop.circle.fill"], // Placeholder avatars
+              price: "$30.00",
+              coverImageName: "party.cover", // Placeholder, use an actual image asset name
+              gradientColors: [Color(red: 100/255, green: 40/255, blue: 180/255).opacity(0.85), Color(red: 50/255, green: 20/255, blue: 90/255).opacity(0.85)],
+              longDescription: "We have a team but still missing a couple of people. Let's play together! We have a team but still missing a couple of people. We have a team but still missing a couple of people.",
+              organizer: Organizer(name: "Wade Warren", imageName: "person.crop.circle.badge.checkmark.fill"), // Placeholder
+              coordinates: CLLocationCoordinate2D(latitude: 23.2156, longitude: 72.6369)), // Gandhinagar coordinates
+
         Event(title: "Food Truck Rally",
-              dateString: "Saturday, 12:00 PM",
-              location: "Downtown Square",
+              dateString: "SAT 28 May, 12:00 PM",
+              dateTime: Calendar.current.date(byAdding: .day, value: 3, to: Date())!,
+              locationName: "Downtown Square",
+              fullAddress: "Main Street, Downtown",
               distance: "1.2 miles away",
-              attendees: 89,
-              price: "$15",
-              imageName: "car.circle.fill",
-              gradientColors: [
-                Color(red: 40/255, green: 100/255, blue: 180/255).opacity(0.30),
-                Color(red: 20/255, green: 50/255, blue: 90/255).opacity(0.30)
-              ],
-              longDescription: "A gathering of the city's best food trucks! Sample a diverse range of culinary delights, from gourmet burgers to exotic street food. Live music and seating areas available. Entry fee includes 3 tasting tokens."),
-        Event(title: "Art Gallery Opening",
-              dateString: "Sunday, 6:00 PM",
-              location: "Gallery District",
-              distance: "3.1 miles away",
-              attendees: 52,
-              price: "Free",
-              imageName: "photo.artframe.circle.fill",
-              gradientColors: [
-                Color(red: 40/255, green: 180/255, blue: 100/255).opacity(0.30),
-                Color(red: 20/255, green: 90/255, blue: 50/255).opacity(0.30)
-              ],
-              longDescription: "Be the first to witness the new 'Modern Perspectives' exhibition featuring stunning works by emerging local artists. Wine and hors d'oeuvres will be served. Mingle with the artists and art enthusiasts."),
-        Event(title: "Tech Meetup",
-              dateString: "Monday, 7:30 PM",
-              location: "Innovation Hub",
-              distance: "4.2 miles away",
-              attendees: 127,
-              price: "$25",
-              imageName: "laptopcomputer.circle.fill",
-              gradientColors: [
-                Color(red: 60/255, green: 30/255, blue: 130/255).opacity(0.30),
-                Color(red: 30/255, green: 15/255, blue: 70/255).opacity(0.30)
-              ],
-              longDescription: "Connect with fellow tech professionals and enthusiasts. This month's topic is 'The Future of AI in Mobile Development', featuring guest speakers from leading tech companies. Networking session included. Ticket includes refreshments.")
+              attendeesCount: 89,
+              attendeeImageNames: ["person.crop.circle.fill", "person.crop.circle.fill", "person.crop.circle.fill"],
+              price: "$15.00",
+              coverImageName: "foodtruck.cover",
+              gradientColors: [Color(red: 40/255, green: 100/255, blue: 180/255).opacity(0.85), Color(red: 20/255, green: 50/255, blue: 90/255).opacity(0.85)],
+              longDescription: "A gathering of the city's best food trucks! Sample a diverse range of culinary delights, from gourmet burgers to exotic street food. Live music and seating areas available.",
+              organizer: Organizer(name: "Foodie Group", imageName: "person.crop.circle.badge.plus.fill"),
+              coordinates: CLLocationCoordinate2D(latitude: 34.0522, longitude: -118.2437)) // Downtown LA placeholder
     ]
 }

@@ -17,6 +17,8 @@ struct AppConstants {
     static let disabledColor = Color.gray
     static let linkColor = Color(red: 0/255, green: 122/255, blue: 255/255) // A typical blue for links
     static let exploreCardViewBgColor = Color(red: 39/255, green: 30/255, blue: 40/255)
+    
+    static let eventProfileSectionBackground = Color(white: 0.1) // Slightly lighter than pure black
 
     // MARK: - Paddings & Spacings
     static let horizontalPadding: CGFloat = 20

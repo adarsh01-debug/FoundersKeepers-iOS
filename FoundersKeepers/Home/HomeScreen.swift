@@ -25,9 +25,7 @@ struct HomeScreen: View {
         tabBarAppearance.stackedLayoutAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: unselectedTabColor]
         
         UITabBar.appearance().standardAppearance = tabBarAppearance
-        if #available(iOS 15.0, *) {
-            UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
-        }
+        UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
         
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithOpaqueBackground()
@@ -65,7 +63,6 @@ struct HomeScreen: View {
                 }
                 .tag(Tab.chats)
 
-            // ProfileTabScreen now manages its own presentationMode via @Environment
             ProfileTabScreen()
                 .tabItem {
                     Label("Profile", systemImage: "person.circle")

@@ -57,8 +57,6 @@ struct EventsScreen: View {
                 }
                 .scrollIndicators(.hidden)
             }
-            // The VStack above will naturally fit its content.
-            // The ScrollView will take available vertical space within the VStack.
             
             // Layer 3: Floating Action Button (FAB)
             Button(action: {
