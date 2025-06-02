@@ -22,10 +22,10 @@ struct EventProfileScreen: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 0) {
                     // Event Image (as per previous "standard nav bar" version)
-                    Image(systemName: event.coverImageName) // Or Image(event.coverImageName)
+                    Image(event.coverImageName)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(height: 200)
+                        .frame(height: 240)
                         .clipped()
                         .cornerRadius(10)
                         .padding(.horizontal, AppConstants.horizontalPadding)
@@ -35,6 +35,7 @@ struct EventProfileScreen: View {
                     // (These helper views and their content remain as previously defined)
                     EventDetailsBox(event: event)
                         .padding([.horizontal, .top], AppConstants.horizontalPadding)
+                        .offset(y: -40)
 
                     SectionView(title: "About") {
                         Text(event.longDescription)

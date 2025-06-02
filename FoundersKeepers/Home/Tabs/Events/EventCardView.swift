@@ -20,7 +20,7 @@ struct EventCardView: View {
             Image(systemName: event.coverImageName) // Using SF Symbols as placeholders
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 60, height: 60)
+                .frame(width: 40, height: 40)
                 .padding(10)
                 .background(Color.white.opacity(0.1))
                 .clipShape(RoundedRectangle(cornerRadius: 10))

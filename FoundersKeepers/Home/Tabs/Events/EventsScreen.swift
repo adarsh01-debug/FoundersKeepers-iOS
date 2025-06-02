@@ -13,36 +13,34 @@ struct EventsScreen: View {
 
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
-            // Layer 1: Background Color for the ZStack.
-            // This color will now extend into the safe areas because the ZStack itself will ignore them.
             AppConstants.darkBackground.edgesIgnoringSafeArea(.all)
-            
-            // Layer 2: Main content (Header + Scrollable list)
-            VStack(alignment: .leading, spacing: 0) {
-                // Header Section (as previously defined)
-                HStack {
-                    Image(systemName: "calendar.badge.plus")
-                        .font(.system(size: 28, weight: .bold))
-                        .foregroundColor(AppConstants.primaryOrange)
-                        .padding(8)
-                        .background(AppConstants.primaryOrange.opacity(0.15))
-                        .clipShape(Circle())
-                    
-                    VStack(alignment: .leading) {
-                        Text("Events Near You")
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
-                        Text("Discover and join amazing events")
-                            .font(.caption)
-                            .foregroundColor(AppConstants.secondaryText)
-                    }
-                }
-                .padding(.horizontal, AppConstants.horizontalPadding)
-                .padding(.top, AppConstants.largeVerticalSpacing)
-                .padding(.bottom, AppConstants.verticalSpacing)
                 
-                ScrollView {
+            ScrollView {
+                // Layer 2: Main content (Header + Scrollable list)
+                VStack(alignment: .leading, spacing: 0) {
+                    // Header Section (as previously defined)
+                    HStack {
+                        Image(systemName: "calendar.badge.plus")
+                            .font(.system(size: 28, weight: .bold))
+                            .foregroundColor(AppConstants.primaryOrange)
+                            .padding(8)
+                            .background(AppConstants.primaryOrange.opacity(0.15))
+                            .clipShape(Circle())
+                        
+                        VStack(alignment: .leading) {
+                            Text("Events Near You")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                            Text("Discover and join amazing events")
+                                .font(.caption)
+                                .foregroundColor(AppConstants.secondaryText)
+                        }
+                    }
+                    .padding(.horizontal, AppConstants.horizontalPadding)
+                    .padding(.top, AppConstants.largeVerticalSpacing)
+                    .padding(.bottom, AppConstants.verticalSpacing)
+                    
                     LazyVStack(spacing: AppConstants.verticalSpacing) {
                         ForEach(events) { event in
                             NavigationLink(destination: EventProfileScreen(event: event)) {
